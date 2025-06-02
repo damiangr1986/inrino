@@ -21,12 +21,13 @@ def getAllImages():
         types = []
 
         for type in pokemon["types"]:
-            name = type["type"]["name"]
+            name = type["type"]["name"].capitalize()
             types.append(name)
 
         card = {
+            "image": pokemon["sprites"]["front_default"],
             "id": pokemon["id"],
-            "name": pokemon["name"],
+            "name": pokemon["name"].capitalize(),
             "types":types,
             "height": pokemon["height"],
             "weight": pokemon["weight"],
