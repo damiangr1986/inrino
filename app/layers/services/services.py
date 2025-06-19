@@ -1,5 +1,6 @@
 # capa de servicio/lógica de negocio
 
+import random
 from ..transport import transport
 from ...config import config
 from ..persistence import repositories
@@ -22,6 +23,7 @@ def getAllImages():
 
         cards.append(card) #agregamos una tarjeta a la lista nueva 
     return cards #devuelve la lista final de cards con toda la información
+    return cards #devuelve la lista final de cards con toda la información.
 
 # función que filtra según el nombre del pokemon.
 def filterByCharacter(name):
