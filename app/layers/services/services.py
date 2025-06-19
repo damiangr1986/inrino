@@ -10,10 +10,18 @@ from django.contrib.auth import get_user
 def getAllImages():
     pokemon_lista=transport.getAllImages() #pedimos la lista de los pokemon con la info "desornedana, y lo guardamos en la variable pokemon_lista"
     cards=[] #inicamos una lista de tarjetas
+
     for poke_data in pokemon_lista: #recorremos cada pokemon de la lista
         card = translator.fromRequestIntoCard(poke_data) # a los datos de cada pokemon lo transformamos en tarjetas y le asignamos la variable card
+
+        alt_names = poke_data.get('alternate_names', []) #obtenemos la lista de nombres alternativos o lista vacia si no hay
+        if alt_names: #si hay nombres
+            card.display_name = random.choice(alt_names) #elige uno al azar y se asigna como display_name
+        else: 
+            card.display_name = "No hay nombres alternativos para " + card.name #si no hay, muestra un mensaje con su nombre real
+
         cards.append(card) #agregamos una tarjeta a la lista nueva 
-    return card
+    return cards #devuelve la lista final de cards con toda la información
 
 # función que filtra según el nombre del pokemon.
 def filterByCharacter(name):
