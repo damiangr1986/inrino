@@ -12,7 +12,21 @@ def fromRequestIntoCard(poke_data):
         base=poke_data.get('base_experience'),
         image=safe_get(poke_data, 'sprites', 'other', 'official-artwork', 'front_default'),
         types=getTypes(poke_data)
+    
     )
+    if card.types:
+        tipo_principal = card.types[0].lower()
+        if tipo_principal == 'fire':
+            card.border_class = 'border-danger'    # rojo
+        elif tipo_principal == 'water':
+            card.border_class = 'border-primary'   # azul
+        elif tipo_principal == 'grass':
+            card.border_class = 'border-success'   # verde
+        else:
+            card.border_class = 'border-warning'   # naranja para otros tipos
+    else:
+        card.border_class = 'border-warning' 
+    
     return card
 
 # recupera los tipos del JSON
