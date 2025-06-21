@@ -18,15 +18,30 @@ def home(request):
 # función utilizada en el buscador.
 def search(request):
     name = request.POST.get('query', '')
+    name = request.POST.get('query', '').strip().lower() #el strip es para que elimine espacios al princio y al final de la cadena.
 
     # si el usuario ingresó algo en el buscador, se deben filtrar las imágenes por dicho ingreso.
     if (name != ''):
+    
+    if name == '': #si no escribió nada (cadena vacía), mostramos todas las imágenes
+        images = services.getAllImages()
+    else:
+        all_images = services.getAllImages() # si escribió algo traemos todas las imágenes
         images = []
+        for img in all_images: #se recorren todas las imágenes y nos quedamos con las que coinciden
+            if name in img.name.lower(): #si el nombre escrito por el usuario está en en el nombre del pokemon.
+                images.append(img) #se agrega a la lista
+    if request.user.is_authenticated:  # si el usuario está logueado, traemos su lista de favoritos
+        favourite_list = services.getAllFavourites(request)
+    else: # si no lo está devuelve una lista vacía.
         favourite_list = []
 
         return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
     else:
         return redirect('home')
+    return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+    
+        
 
 # función utilizada para filtrar por el tipo del Pokemon
 def filter_by_type(request):
