@@ -30,16 +30,13 @@ def search(request):
 
 # función utilizada para filtrar por el tipo del Pokemon
 def filter_by_type(request):
-    type = request.POST.get('type', '')
-
-    if type != '':
-        images = [] # debe traer un listado filtrado de imágenes, segun si es o contiene ese tipo.
-        favourite_list = []
-
-        return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+    if request.method == 'POST':
+        type_filter = request.POST.get('type')
+        cards = services.filterByType(type_filter)
+        favourites = services.getAllFavourites(request)
+        return render(request, 'home.html', {'cards': cards, 'favourites': favourites})
     else:
         return redirect('home')
-
 # Estas funciones se usan cuando el usuario está logueado en la aplicación.
 @login_required
 def getAllFavouritesByUser(request):
