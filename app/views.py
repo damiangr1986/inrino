@@ -10,8 +10,6 @@ def index_page(request):
 
 # esta función obtiene 2 listados: uno de las imágenes de la API y otro de favoritos, ambos en formato Card, y los dibuja en el template 'home.html'.
 def home(request):
-    images = []
-    favourite_list = services.getAllFavourites(request):#esto llama a la lista de favoritos que esta en el services
     images = services.getAllImages() #llama a la función que arma las cards.
     favourite_list = services.getAllFavourites(request) #esto llama a la lista de favoritos que esta en el services
 
