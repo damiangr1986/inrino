@@ -40,10 +40,8 @@ def filterByType(type_filter):
     filtered_cards = []
 
     for card in getAllImages():
-        # Comparamos ignorando mayúsculas/minúsculas
         if type_filter.lower() in [t.lower() for t in card.types]:
             filtered_cards.append(card)
-
     return filtered_cards
 
 # añadir favoritos (usado desde el template 'home.html')

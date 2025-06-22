@@ -32,9 +32,9 @@ def search(request):
 def filter_by_type(request):
     if request.method == 'POST':
         type_filter = request.POST.get('type')
-        cards = services.filterByType(type_filter)
-        favourites = services.getAllFavourites(request)
-        return render(request, 'home.html', {'cards': cards, 'favourites': favourites})
+        images = services.filterByType(type_filter)  # ← usamos "images" como en home()
+        favourite_list = services.getAllFavourites(request)
+        return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
     else:
         return redirect('home')
 # Estas funciones se usan cuando el usuario está logueado en la aplicación.
