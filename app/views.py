@@ -17,12 +17,10 @@ def home(request):
 
 # función utilizada en el buscador.
 def search(request):
-    name = request.POST.get('query', '')
+    
     name = request.POST.get('query', '').strip().lower() #el strip es para que elimine espacios al princio y al final de la cadena.
 
-    # si el usuario ingresó algo en el buscador, se deben filtrar las imágenes por dicho ingreso.
-    if (name != ''):
-    
+
     if name == '': #si no escribió nada (cadena vacía), mostramos todas las imágenes
         images = services.getAllImages()
     else:
@@ -36,9 +34,7 @@ def search(request):
     else: # si no lo está devuelve una lista vacía.
         favourite_list = []
 
-        return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
-    else:
-        return redirect('home')
+        
     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
     
         
